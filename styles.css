@@ -1,0 +1,83 @@
+body {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+.wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgb(238, 238, 238), rgb(201, 197, 197));
+}
+.header {
+    display: grid;
+    max-width: 30em;
+    grid-template-columns: 1fr;
+    align-items: center;
+}
+.header h1 {
+    display: block;
+    margin: 0px;
+}
+.header > * {
+    color: white;
+    text-shadow: rgb(78, 78, 78) 2px 2px 2px;
+    font-size: 3em;
+}
+
+.input-box {
+    padding: 2px;
+}
+
+input {
+    width: 100%;
+    height: 3em;
+    text-align: center;
+    border-radius: 1.5em;
+    outline: none;
+    border-width: 0px;
+    border-style: initial;
+    border-color: initial;
+    border-image: initial;
+}
+
+.side-bar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 20em;
+    height: 100vh;
+    background-color: white;
+    transform: translateX(-100%);
+    transition: transform 1s ease 0s;
+}
+
+.side-bar::before {
+    content: "Watch List";
+    position: absolute;
+    font-size: 0.8rem;
+    padding: 2px;
+    left: 100%;
+    width: auto;
+    height: auto;
+    background: #928585;
+    text-orientation: upright;
+    writing-mode: vertical-lr;
+}
+
+.modal-outer {
+    display: none;
+}
+
+.open {
+    transform: translateX(0px);
+}
+
+input:focus {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(78, 78, 78);
+    border-image: initial;
+}
