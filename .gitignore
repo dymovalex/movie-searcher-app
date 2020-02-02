@@ -1,0 +1,6 @@
+# Папки .cache/, .parcel-cache/, dist/, node-modules/
+.cache
+.parcel-cache
+dist
+node_modules
+package-lock.json

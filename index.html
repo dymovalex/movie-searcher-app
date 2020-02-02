@@ -12,25 +12,99 @@
 <body>
     <div class="wrapper">
         <div class="header">
-			
             <h1><i class="fas fa-film"></i>Movie Searcher</h1>
             <div class="input-box">
-                <input type="text" placeholder="Search for...">
+				<input type="text" class="search" placeholder="Search for...">
+				<ul class="suggestions">
+				</ul>
             </div>
         </div>   
 	</div>
-	
+    
+    
+
+
+    <!-- Side-bar -->
 	<div class="side-bar">
+        <h2>My Watch List</h2>
+		<div class="cards">
+
+<!--
+
+			<div class="card" data-description="Movie 1">
+				<img src="./pic.png">
+				<h2>Movie 1</h2>
+				<span>Score</span>
+			</div>
+			<div class="card" data-description="Movie 2">
+				<img src="./pic.png">
+				<h2>Movie 2</h2>
+				<span>Score</span>
+			</div>
+			<div class="card" data-description="Movie 3">
+				<img src="./pic.png">
+				<h2>Movie </h2>
+				<span>Score</span>
+			</div>
+			<div class="card" data-description="Movie 4">
+				<img src="./pic.png">
+				<h2>Movie 4</h2>
+				<span>Score</span>
+			</div>
+			<div class="card" data-description="Movie 5">
+				<img src="./pic.png">
+				<h2>Movie 5</h2>
+				<span>Score</span>
+			</div>
+			<div class="card" data-description="Movie 6">
+				<img src="./pic.png">
+				<h2>Movie 6</h2>
+				<span>Score</span>
+			</div>
+			<div class="card" data-description="Movie 7">
+				<img src="./pic.png">
+				<h2>Movie 7</h2>
+				<span>Score</span>
+			</div>
+			<div class="card" data-description="Movie 8">
+				<img src="./pic.png">
+				<h2>Movie 8</h2>
+				<span>Score</span>
+			</div>
+			<div class="card" data-description="Movie 9">
+				<img src="./pic.png">
+				<h2>Movie 9</h2>
+				<span>Score</span>
+			</div>
+			<div class="card" data-description="Movie 10">
+				<img src="./pic.png">
+				<h2>Movie 10</h2>
+				<span>Score</span>
+            </div>
+            -->
+        </div>
+    
 	</div>
 
+
+    <!-- Pop-up window -->
     <div class="modal-outer">
-        <div class="modal-inner">
-            <p>Pop-up window</p>
-        </div>
-    </div>
+		<div class="modal-inner">
+			<span class="arrow">←</span>
+			<div class="movie-info">
+				<img src="./pic.png">
+				<div class="movie-text">
+					<h2>Name of movie</h2>
+					<p>Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+				</div>
+				<span>Score</span>
+			</div>
+			<span class="arrow">→</span>
+		</div>
+	</div>
 
 
-  <script src="./app.js"></script>
+  <script src="./app.js" type="module"></script>
 </body>
 
 </html>
