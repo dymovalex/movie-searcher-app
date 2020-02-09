@@ -32,6 +32,7 @@ body {
 }
 .header h1 {
     display: block;
+    text-align: center;
     margin: 0px;
 }
 .header > * {
@@ -41,6 +42,7 @@ body {
 }
 
 .input-box {
+    width: 400px;
     padding: 2px;
 }
 
@@ -104,7 +106,7 @@ input:focus {
     position: absolute;
     top: 0px;
     left: 0px;
-    width: 20vw;
+    width: 320px;
     height: 100vh;
     transform: translateX(-100%);
     transition: transform 1s ease 0s;
@@ -140,7 +142,7 @@ input:focus {
     transform: translateX(-100%);
     transition: transform 1s ease 0.2s;
 }*/
-
+/*
 .side-bar-wrapper:before {
     content: "Watch List";
     position: absolute;
@@ -154,15 +156,32 @@ input:focus {
     writing-mode: vertical-lr;
     cursor: pointer;
 }
-
+*/
 .open {
     transform: translateX(0);
 }
 
-.open-full{
+.open.open-full{
     width: 100vw;
     transform: translateX(0);
+    transition: width 1s ease 0s;
 
+}
+
+.open-button {
+    position: absolute;
+    font-size: 0.8rem;
+    padding: 2px;
+    left: 100%;
+    width: auto;
+    height: auto;
+    background: #e5c007;
+    text-orientation: upright;
+    writing-mode: vertical-lr;
+    cursor: pointer;
+}
+.open-button>*{
+    margin: 0;
 }
 
 .close-button{
@@ -176,9 +195,9 @@ input:focus {
     z-index: 99;
 }
 
-.side-bar-wrapper .side-bar .cards{
+.cards{
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
 	grid-gap: 20px;
     padding: 2rem;
     justify-content: center;
@@ -234,7 +253,7 @@ input:focus {
 .card .poster .remove{
     display: block;
     position: absolute;
-    top: 12px;
+    top: 8px;
     right: 8px;
     font-size: 1.2rem;
     width: 25px;
@@ -245,7 +264,12 @@ input:focus {
     justify-content: center;
     align-items: center;
     color: white;
+    background-color: #928585;
     border: .5px solid white;
+}
+
+.card .poster .remove:hover{
+    transform: scale(1.2);
 }
 
 /* Pop-up window */
