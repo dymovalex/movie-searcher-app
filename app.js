@@ -3,7 +3,6 @@ import { TMDB_KEY } from "./config.js"; // API key for movie database
 const endpointSearch = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=`;
 
 const sideBar = document.querySelector('.side-bar-wrapper');
-//const sideBarButton = document.querySelector('.side-bar-wrapper:before');
 const sideBarOpenButton = document.querySelector('.open-button');
 const modalOuter = document.querySelector('.modal-outer');
 const modalInner = document.querySelector('.modal-inner');
@@ -11,7 +10,7 @@ const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
 const sideBarContent = document.querySelector('.cards');
 const sideBarCloseButton = document.querySelector('.close-button');
-
+const adviseSectionContent = document.querySelector('.advise-cards');
 
 let moviesInWatchList = JSON.parse(localStorage.getItem('moviesInWatchList')) || []; //creating empty array or getting watch list from local storage
 
@@ -172,25 +171,32 @@ modalInner.addEventListener('click', addToWatchList);
 
 showWatchList();
 
-/*
 const endpoint = `https://api.themoviedb.org/3/movie/top_rated?api_key=${TMDB_KEY}&language=en-US&page=1`;
-const movies = []; // an empty array for holding fetching data
-fetch(endpoint)
-.then(data => data.json())
-.then(response => movies.push(...response.results));
+let topMovies = []; // an empty array for holding fetching data
 
-function showTopRatedFilms() {
-    const sideBarHTML = movies.map(movie => {
-        return `
-        <div class="card" data-description="${movie.id}">
-        <img src="https://image.tmdb.org/t/p/original/${movie.poster_path}">
-        <h2>${movie.title}</h2>
-        <span>${movie.vote_average}</span>
-        </div>
-        `;
-    }).join(``);
-    sideBarContent.innerHTML = sideBarHTML;
-    cards = document.querySelectorAll('.card');
-    cards.forEach(card => card.addEventListener('click', openModal));
+
+function showTopMoviesList() {
+    fetch(endpoint)
+        .then(data => data.json())
+        .then(response => {
+            topMovies = [];
+            topMovies.push(...response.results)
+            const adviseSectionHTML = topMovies.map(movie => {
+                return `
+                    <div class="advise-card" data-description="${movie.id}">
+                        <div class="poster">
+                            <img src="https://image.tmdb.org/t/p/original/${movie.poster_path}">
+                            <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average}</span>
+                        </div>
+                        <h2>${movie.title}</h2>
+                    </div>
+                    `;
+                }).join('');
+            adviseSectionContent.innerHTML = adviseSectionHTML;
+        });
+
+    /*const cards = document.querySelectorAll('.card');
+    cards.forEach(card => card.addEventListener('click', (e) => openModal(e)(moviesInWatchList)));*/
 }
-*/
+
+showTopMoviesList();
