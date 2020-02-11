@@ -11,6 +11,7 @@ const suggestions = document.querySelector('.suggestions');
 const sideBarContent = document.querySelector('.cards');
 const sideBarCloseButton = document.querySelector('.close-button');
 const adviseSectionContent = document.querySelector('.advise-cards');
+const topMoviesCategories = document.querySelectorAll('.category');
 
 let moviesInWatchList = JSON.parse(localStorage.getItem('moviesInWatchList')) || []; //creating empty array or getting watch list from local storage
 
@@ -20,7 +21,7 @@ function showWatchList() {
             <div class="card" data-description="${movie.id}">
                 <div class="poster">
                     <img src="https://image.tmdb.org/t/p/original/${movie.poster_path}">
-                    <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average}</span>
+                    <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length === 3 ? movie.vote_average : movie.vote_average + '.0'}</span>
                     <span class="remove" name="remove"><i class="fas fa-trash"></i></span>
                 </div>
                 <h2>${movie.title}</h2>
@@ -171,12 +172,16 @@ modalInner.addEventListener('click', addToWatchList);
 
 showWatchList();
 
-const endpoint = `https://api.themoviedb.org/3/movie/top_rated?api_key=${TMDB_KEY}&language=en-US&page=1`;
+const endpoints = {
+    popular: `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_KEY}&language=en-US&page=1`,
+    nowInTheaters: `https://api.themoviedb.org/3/movie/now_playing?api_key=${TMDB_KEY}&language=en-US&page=1`,
+    comingSoon: `https://api.themoviedb.org/3/movie/upcoming?api_key=${TMDB_KEY}&language=en-US&page=1`,
+    topRated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${TMDB_KEY}&language=en-US&page=1`
+};
 let topMovies = []; // an empty array for holding fetching data
 
-
-function showTopMoviesList() {
-    fetch(endpoint)
+function showTopMoviesList(category) {
+    fetch(endpoints[category])
         .then(data => data.json())
         .then(response => {
             topMovies = [];
@@ -186,17 +191,32 @@ function showTopMoviesList() {
                     <div class="advise-card" data-description="${movie.id}">
                         <div class="poster">
                             <img src="https://image.tmdb.org/t/p/original/${movie.poster_path}">
-                            <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average}</span>
+                            <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length === 3 ? movie.vote_average : movie.vote_average + '.0'}</span>
                         </div>
-                        <h2>${movie.title}</h2>
+                        <h2>${movie.title.length < 40 ? movie.title : movie.title.slice(0, 40) + '...'}</h2>
                     </div>
                     `;
                 }).join('');
             adviseSectionContent.innerHTML = adviseSectionHTML;
+            const cards = document.querySelectorAll('.advise-card');
+            cards.forEach(card => card.addEventListener('click', (e) => openModal(e)(topMovies)));
         });
 
-    /*const cards = document.querySelectorAll('.card');
-    cards.forEach(card => card.addEventListener('click', (e) => openModal(e)(moviesInWatchList)));*/
 }
+/*
+function chooseTopMoviesCategory(e){
+    console.log(e.currentTarget.nextElementSibling);
+    showTopMoviesList(e.currentTarget.dataset.category);
+    while(!e.currentTarget.nextElementSibling){
+        e.currentTarget.nextElementSibling.classList.remove('highlight');
+    }
+    while(!e.currentTarget.previousElementSibling){
+        e.currentTarget.previousElementSibling.classList.remove('highlight');
+    }
+    e.currentTarget.classList.add('highlight');
+}
+*/
 
-showTopMoviesList();
+topMoviesCategories.forEach(category => category.addEventListener('click', (e) =>   showTopMoviesList(e.currentTarget.dataset.category)));
+
+showTopMoviesList('popular');

@@ -1,7 +1,8 @@
+/*
 ::-webkit-scrollbar{
 	width: 0px;
 }
-
+*/
 body {
     box-sizing: border-box;
     margin: 0px;
@@ -66,6 +67,7 @@ input:focus {
 }
 
 .suggestions {
+    max-width: 50vh;
     margin: 4px;
     padding: 2px;
     position: relative;
@@ -105,11 +107,6 @@ input:focus {
 .score-red{
     background-color: #de2d16;
 
-}
-
-.advise-section-wrapper{
-    height: auto;
-    width: 100vw;
 }
 
 .side-bar-wrapper{
@@ -214,9 +211,9 @@ input:focus {
 }
 
 .advise-cards{
+    /*
     display: grid;
     grid-auto-flow: column;
-	/*grid-template-columns: repeat(auto-fit, minmax(216px, 220px));*/
 	grid-gap: 20px;
     padding: 2rem;
     justify-content: flex-start;
@@ -225,6 +222,12 @@ input:focus {
     width: 100%;
     overflow: hidden;
     overflow-x: scroll;
+    */
+    width: 100vw;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
 
@@ -250,6 +253,8 @@ input:focus {
     flex-direction: column;
     justify-content: center;
     border-radius: 4px;
+    flex: 0 0 auto;
+    margin: 10px;
 
 }
 .card:hover,
@@ -317,7 +322,8 @@ input:focus {
 
 
 .advise-section{
-    width: 100%;
+    max-width: 100vw;
+    height: 536px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -325,12 +331,31 @@ input:focus {
     overflow: hidden;
 }
 
+.advise-section h2{
+    margin: 10px 0;
+}
+
 .advise-section ul{
+    padding: 0;
+    margin: 0;
+    margin-bottom: 10px;
     font-size: 1.4rem;
     list-style: none;
     width: 50vw;
     display: flex;
     justify-content: space-between;
+}
+
+.advise-section ul li{
+    cursor: pointer;
+}
+
+.advise-section ul li:hover{
+    color: #e5c007;
+}
+
+.highlight{
+    color: #e5c007;
 }
 
 /* Pop-up window */
