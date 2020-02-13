@@ -10,7 +10,8 @@ const searchInput = document.querySelector('.search');
 const suggestions = document.querySelector('.suggestions');
 const sideBarContent = document.querySelector('.cards');
 const sideBarCloseButton = document.querySelector('.close-button');
-const adviseSectionContent = document.querySelector('.advise-cards');
+const adviceSection = document.querySelector('.advice-section');
+const adviceSectionContent = document.querySelector('.advice-cards');
 const topMoviesCategories = document.querySelectorAll('.category');
 
 let moviesInWatchList = JSON.parse(localStorage.getItem('moviesInWatchList')) || []; //creating empty array or getting watch list from local storage
@@ -186,37 +187,30 @@ function showTopMoviesList(category) {
         .then(response => {
             topMovies = [];
             topMovies.push(...response.results)
-            const adviseSectionHTML = topMovies.map(movie => {
+            const adviceSectionHTML = topMovies.map(movie => {
                 return `
-                    <div class="advise-card" data-description="${movie.id}">
+                    <div class="advice-card" data-description="${movie.id}">
                         <div class="poster">
                             <img src="https://image.tmdb.org/t/p/original/${movie.poster_path}">
                             <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length === 3 ? movie.vote_average : movie.vote_average + '.0'}</span>
                         </div>
-                        <h2>${movie.title.length < 40 ? movie.title : movie.title.slice(0, 40) + '...'}</h2>
+                        <h2>${movie.title/*.length < 40 ? movie.title : movie.title.slice(0, 40) + '...'*/}</h2>
                     </div>
                     `;
                 }).join('');
-            adviseSectionContent.innerHTML = adviseSectionHTML;
-            const cards = document.querySelectorAll('.advise-card');
+            adviceSectionContent.innerHTML = adviceSectionHTML;
+            const cards = document.querySelectorAll('.advice-card');
             cards.forEach(card => card.addEventListener('click', (e) => openModal(e)(topMovies)));
         });
 
 }
-/*
-function chooseTopMoviesCategory(e){
-    console.log(e.currentTarget.nextElementSibling);
-    showTopMoviesList(e.currentTarget.dataset.category);
-    while(!e.currentTarget.nextElementSibling){
-        e.currentTarget.nextElementSibling.classList.remove('highlight');
-    }
-    while(!e.currentTarget.previousElementSibling){
-        e.currentTarget.previousElementSibling.classList.remove('highlight');
-    }
-    e.currentTarget.classList.add('highlight');
-}
-*/
 
-topMoviesCategories.forEach(category => category.addEventListener('click', (e) =>   showTopMoviesList(e.currentTarget.dataset.category)));
+topMoviesCategories.forEach(category => category.addEventListener('click', (e) => {
+    Array.from(topMoviesCategories).map(category => category.classList.remove('highlight'));
+    e.currentTarget.classList.add('highlight');
+    return showTopMoviesList(e.currentTarget.dataset.category);
+}));
+
+document.addEventListener('scroll', e => console.log(e));
 
 showTopMoviesList('popular');
