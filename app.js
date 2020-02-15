@@ -7,6 +7,7 @@ const sideBarOpenButton = document.querySelector('.open-button');
 const modalOuter = document.querySelector('.modal-outer');
 const modalInner = document.querySelector('.modal-inner');
 const searchInput = document.querySelector('.search');
+//const wrapperElement = document.querySelector('.wrapper');
 const suggestions = document.querySelector('.suggestions');
 const sideBarContent = document.querySelector('.cards');
 const sideBarCloseButton = document.querySelector('.close-button');
@@ -22,7 +23,7 @@ function showWatchList() {
             <div class="card" data-description="${movie.id}">
                 <div class="poster">
                     <img src="https://image.tmdb.org/t/p/original/${movie.poster_path}">
-                    <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length === 3 ? movie.vote_average : movie.vote_average + '.0'}</span>
+                    <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length !== 1 ? movie.vote_average : movie.vote_average + '.0'}</span>
                     <span class="remove" name="remove"><i class="fas fa-trash"></i></span>
                 </div>
                 <h2>${movie.title}</h2>
@@ -100,7 +101,7 @@ function openModal(e){
                 <div class="movie-info">
                     <div class="movie-img">
                         <img src="https://image.tmdb.org/t/p/original/${movieCard[0].poster_path}">
-                        <span class="score-${scoreColor(movieCard[0].vote_average)}">${movieCard[0].vote_average}</span>
+                        <span class="score-${scoreColor(movieCard[0].vote_average)}">${movieCard[0].vote_average.toString().length !== 1 ? movieCard[0].vote_average : movieCard[0].vote_average + '.0'}</span>
                     </div>
                     <div class="movie-text">
                         <h2>${movieCard[0].title}</h2>
@@ -143,7 +144,7 @@ function displayMatches(e){
                 return `<li class="li" data-description="${movie.id}">
                     <div>${movie.title}</div>
                     <div>${movie.release_date.slice(0, 4)}</div>
-                    <div class="score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length === 3 ? movie.vote_average : movie.vote_average + '.0'}</div>
+                    <div class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length !== 1 ? movie.vote_average : movie.vote_average + '.0'}</div>
                 </li>`;
             }).join('');
             suggestions.innerHTML = searchHTML;
@@ -169,6 +170,7 @@ sideBarOpenButton.addEventListener('click', openSideBar);
 sideBarCloseButton.addEventListener('click', closeSideBar);
 searchInput.addEventListener('change', displayMatches);
 searchInput.addEventListener('keyup', displayMatches);
+//searchInput.addEventListener('onfocus', () => wrapperElement.classList.toggle('ready'));
 modalInner.addEventListener('click', addToWatchList);
 
 showWatchList();
@@ -192,7 +194,7 @@ function showTopMoviesList(category) {
                     <div class="advice-card" data-description="${movie.id}">
                         <div class="poster">
                             <img src="https://image.tmdb.org/t/p/original/${movie.poster_path}">
-                            <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length === 3 ? movie.vote_average : movie.vote_average + '.0'}</span>
+                            <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length !== 1 ? movie.vote_average : movie.vote_average + '.0'}</span>
                         </div>
                         <h2>${movie.title/*.length < 40 ? movie.title : movie.title.slice(0, 40) + '...'*/}</h2>
                     </div>
