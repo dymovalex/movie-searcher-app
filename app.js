@@ -38,7 +38,6 @@ function showWatchList() {
 function addToWatchList(e){
     if(e.target.name === 'btn'){
         if(!e.target.classList.contains('remove')){
-            console.log(e.target);
             const movieData = {
                 id: e.target.dataset.id,
                 title: e.target.dataset.title,
@@ -79,11 +78,7 @@ function closeSideBar(){
 
 function openModal(e){
     return function (movies = searchMovies){
-        console.log(this);
-        console.log(e.target);
-        console.log(movies);
         if(e.target.closest(`[name='remove']`)){
-            console.log(moviesInWatchList);
             moviesInWatchList = moviesInWatchList.filter(movie => movie.id !== e.currentTarget.dataset.description);
             showWatchList();
             return;
@@ -146,8 +141,16 @@ function displayMatches(e){
                     <div>${movie.release_date.slice(0, 4)}</div>
                     <div class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length !== 1 ? movie.vote_average : movie.vote_average + '.0'}</div>
                 </li>`;
-            }).join('');
+            })
+                .filter((movie, index) => index < 15)
+                .join('');
             suggestions.innerHTML = searchHTML;
+            /*suggestions.addEventListener('click', e => {
+                if(e.target.closest('.li')){
+                    openModal(e)(searchMovies);
+                }
+                console.log(e.target.closest('.li'));
+            });*/
             const lists = document.querySelectorAll('.li');
             lists.forEach(list => list.addEventListener('click', (e) => openModal(e)(searchMovies)));
         });
@@ -212,7 +215,5 @@ topMoviesCategories.forEach(category => category.addEventListener('click', (e) =
     e.currentTarget.classList.add('highlight');
     return showTopMoviesList(e.currentTarget.dataset.category);
 }));
-
-document.addEventListener('scroll', e => console.log(e));
 
 showTopMoviesList('popular');
