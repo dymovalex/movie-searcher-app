@@ -1,3 +1,4 @@
+
 ::-webkit-scrollbar{
 	width: 0px;
 }
@@ -175,7 +176,7 @@ input:focus {
 
 .close-button{
     position: absolute;
-    left: calc(100% - 35px);
+    left: calc(100% - 45px);
     top: 0;
     color: #de2d16;
     font-size: 1.8rem;
@@ -441,7 +442,7 @@ input:focus {
     text-decoration-color: #928585;
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 760px){
     .side-bar-wrapper{
         height: calc(100vh + 560px);
     }
@@ -454,7 +455,7 @@ input:focus {
     }
 
     .modal-inner{
-        max-width: 90vw;
+        max-width: 75vw;
         height: 90vh;
         overflow: auto;
     }
