@@ -47,13 +47,13 @@ function addToWatchList(e){
                 overview: e.target.dataset.overview,
             };
             moviesInWatchList.push(movieData);
-            e.target.innerText = 'Remove';
+            e.target.innerText = /*'Remove'*/'✘';
             e.target.classList.add('remove');
             showWatchList();
             localStorage.setItem('moviesInWatchList', JSON.stringify(moviesInWatchList));
         } else {
             moviesInWatchList = moviesInWatchList.filter(movie => movie.id !== e.target.dataset.id);
-            e.target.innerText = 'Add';
+            e.target.innerText = /*'Add'*/'✔';
             e.target.classList.remove('remove');
             showWatchList();
             localStorage.setItem('moviesInWatchList', JSON.stringify(moviesInWatchList));
@@ -61,7 +61,7 @@ function addToWatchList(e){
     }    
 }
 
-function openSideBar(e){
+function openSideBar(){
     if(sideBar.classList.contains('open')){
         sideBar.classList.add('open-full');
     } else {
@@ -81,6 +81,7 @@ function openModal(e){
         if(e.target.closest(`[name='remove']`)){
             moviesInWatchList = moviesInWatchList.filter(movie => movie.id !== e.currentTarget.dataset.description);
             showWatchList();
+            localStorage.setItem('moviesInWatchList', JSON.stringify(moviesInWatchList));
             return;
         }
         const movieCard = movies.filter(movie => movie.id.toString() === e.currentTarget.dataset.description);
@@ -92,7 +93,7 @@ function openModal(e){
                     data-poster_path="${movieCard[0].poster_path}"
                     data-release_date="${movieCard[0].release_date}"
                     data-vote_average="${movieCard[0].vote_average}"
-                    data-overview="${movieCard[0].overview}">${moviesInWatchList.some(movie => movie.id === movieCard[0].id.toString()) ? 'Remove' : 'Add'}</button>
+                    data-overview="${movieCard[0].overview}">${moviesInWatchList.some(movie => movie.id === movieCard[0].id.toString()) ? /*'Remove'*/'✘' : '✔'/*'Add'*/}</button>
                 <div class="movie-info">
                     <div class="movie-img">
                         <img src="https://image.tmdb.org/t/p/original/${movieCard[0].poster_path}">
@@ -135,22 +136,17 @@ function displayMatches(e){
         .then(response => {
             searchMovies = [];
             searchMovies.push(...response.results);
+            console.log(searchMovies);
             const searchHTML = searchMovies.map(movie => {
                 return `<li class="li" data-description="${movie.id}">
                     <div>${movie.title}</div>
-                    <div>${movie.release_date.slice(0, 4)}</div>
+                    <div>${movie.release_date ? movie.release_date.slice(0, 4) : ''}</div>
                     <div class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length !== 1 ? movie.vote_average : movie.vote_average + '.0'}</div>
                 </li>`;
             })
                 .filter((movie, index) => index < 15)
                 .join('');
             suggestions.innerHTML = searchHTML;
-            /*suggestions.addEventListener('click', e => {
-                if(e.target.closest('.li')){
-                    openModal(e)(searchMovies);
-                }
-                console.log(e.target.closest('.li'));
-            });*/
             const lists = document.querySelectorAll('.li');
             lists.forEach(list => list.addEventListener('click', (e) => openModal(e)(searchMovies)));
         });
@@ -173,7 +169,6 @@ sideBarOpenButton.addEventListener('click', openSideBar);
 sideBarCloseButton.addEventListener('click', closeSideBar);
 searchInput.addEventListener('change', displayMatches);
 searchInput.addEventListener('keyup', displayMatches);
-//searchInput.addEventListener('onfocus', () => wrapperElement.classList.toggle('ready'));
 modalInner.addEventListener('click', addToWatchList);
 
 showWatchList();
@@ -199,7 +194,7 @@ function showTopMoviesList(category) {
                             <img src="https://image.tmdb.org/t/p/original/${movie.poster_path}">
                             <span class="score score-${scoreColor(movie.vote_average)}">${movie.vote_average.toString().length !== 1 ? movie.vote_average : movie.vote_average + '.0'}</span>
                         </div>
-                        <h2>${movie.title/*.length < 40 ? movie.title : movie.title.slice(0, 40) + '...'*/}</h2>
+                        <h2>${movie.title}</h2>
                     </div>
                     `;
                 }).join('');
