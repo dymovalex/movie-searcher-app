@@ -1,4 +1,3 @@
-
 ::-webkit-scrollbar{
 	width: 0px;
 }
@@ -27,7 +26,7 @@ body {
     grid-template-columns: 1fr;
     align-items: center;
     max-height: 90vh;
-    width: 380px;
+    width: 300px;
     
 }
 .header h1 {
